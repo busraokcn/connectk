@@ -850,3 +850,12 @@ Normal TT ve tehdit uzatmalı ajanların
 protokole uygunluğu kontrol edildi.
 
 Testler kendi bilgisayarımda çalıştırıldı.
+
+### İstek 45
+
+Nihai raporun altı sayfalık sınıra uygun
+hazırlanması, GitHub yüklemesi ve teslim
+işlemleri konusunda ChatGPT'den yardım aldım.
+
+Rapor, önceki deneylerde kendi bilgisayarımda
+elde ettiğim sonuçlardan hazırlandı.
