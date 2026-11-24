@@ -156,7 +156,6 @@ bilgisayarımda gerçekleştirilmiştir.
 ayrıca tekrarlanacaktır.
 
 ## Aşama 2: Alfa-Beta Budaması ve Hamle Sıralaması
-## Aşama 2: Alfa-Beta Budaması ve Hamle Sıralaması
 
 ### Yöntem
 
@@ -269,7 +268,144 @@ tamamlandı.
 Bütün deney ve performans ölçümleri kendi
 bilgisayarımda gerçekleştirildi.
 
-## Aşama 3: Değerlendirme Fonksiyonu ve Ağırlık Ayarı
+## Aşama 3: Sezgisel Değerlendirme Fonksiyonu
+
+### Pencereler ve Öznitelikler
+
+Değerlendirme fonksiyonunda kullanılacak K
+uzunluğundaki pencereler önceden hesaplandı.
+Böylece her Eval çağrısında pencerelerin yeniden
+oluşturulması engellendi.
+
+| Varyant | Pencere sayısı |
+|---|---:|
+| Standart | 20 |
+| Silindir | 48 |
+| Misere | 20 |
+| Engelli | 8 |
+
+Kendi silindir varyantımda bulunan 48 pencerenin
+28 tanesi sarmalıdır.
+
+MAX ve MIN oyuncularının K-1, K-2 ve sarmalı
+pencereleri olmak üzere altı öznitelik kullanıldı.
+İki oyuncunun da taşını içeren pencereler
+değerlendirme dışında bırakıldı.
+
+Merkez sütun kontrolü kullanılmadı çünkü silindir
+varyantında sağ ve sol kenarlar birbirine bağlıdır.
+
+### Değerlendirme Yöntemi
+
+Öznitelikler ağırlıkları ile çarpılarak ham puan
+hesaplandı. MAX puanları toplandı, MIN puanları
+çıkarıldı.
+
+Eval(s) = tanh(Ham Puan / 30)
+
+Terminal olmayan durumların değerleri
+-0.999999 ile +0.999999 arasında sınırlandırıldı.
+Gerçek kazanma ve kaybetme değerleri korundu.
+Terminal kontrolü Eval çağrısından önce yapıldı.
+
+Misere varyantında ham puanın işareti ters çevrildi.
+Bu yaklaşımın oyun başarısı henüz ölçülmemiştir.
+
+### Ağırlık Vektörleri
+
+| Öznitelik | W1 | W2 | W3 |
+|---|---:|---:|---:|
+| max_k1 | 12 | 24 | 10 |
+| max_k2 | 3 | 2 | 6 |
+| min_k1 | 12 | 24 | 10 |
+| min_k2 | 3 | 2 | 6 |
+| max_wrap | 2 | 1 | 4 |
+| min_wrap | 2 | 1 | 4 |
+
+W1 dengeli, W2 tehdit odaklı, W3 ise gelişim
+ve silindir odaklı strateji olarak belirlendi.
+
+Deney öncesinde W3 stratejisinin genel olarak
+daha başarılı olabileceği tahmin edildi.
+
+### Ağırlık Turnuvası
+
+Seed 27 ile 10 farklı başlangıç oluşturuldu.
+İlk 2-4 hamle rastgele oynatıldı. Her ağırlık çifti
+iki farklı oyuncu yönünde 10'ar oyun oynadı.
+
+Bütün ajanlarda derinlik 5 alfa-beta ve A
+hamle sıralaması kullanıldı. Toplam 60 oyun
+32.626 saniyede tamamlandı.
+
+Galibiyet matrisi:
+
+| Ajan / Rakip | W1 | W2 | W3 |
+|---|---:|---:|---:|
+| W1 | - | 9 | 3 |
+| W2 | 8 | - | 7 |
+| W3 | 10 | 6 | - |
+
+Genel sonuçlar:
+
+| Ajan | Galibiyet | Mağlubiyet | Beraberlik | Puan |
+|---|---:|---:|---:|---:|
+| W3 | 16 | 10 | 14 | 23 |
+| W2 | 15 | 15 | 10 | 20 |
+| W1 | 12 | 18 | 10 | 17 |
+
+43 oyun galibiyetle, 17 oyun beraberlikle
+sonuçlandı. W3 en yüksek puanı elde etti.
+Böylece deney öncesindeki tahmin doğrulandı.
+
+Ancak W3, W2 karşısında 6 galibiyet ve
+7 mağlubiyet aldı. Bu nedenle W3'ün her rakibe
+karşı üstün olduğu söylenemez.
+
+Sonraki aşamada W3 ağırlıkları kullanılacaktır.
+
+![Ağırlık turnuvası](grafikler/agirlik_turnuvasi.png)
+
+### Performans ve Simetri
+
+50 rastgele konumda her ağırlık için 5000,
+toplam 15000 Eval çağrısının süresi ölçüldü.
+
+| Ölçüm | W1 | W2 | W3 |
+|---|---:|---:|---:|
+| Ortalama süre (us) | 21.206 | 21.768 | 22.260 |
+| Medyan süre (us) | 21.042 | 21.372 | 21.546 |
+| Ayna simetrisi | 50/50 | 50/50 | 50/50 |
+| Dönmede aynı | 33 | 33 | 33 |
+| Dönmede farklı | 17 | 17 | 17 |
+
+Eval fonksiyonu mikrosaniyeler mertebesinde
+çalışmaktadır. Süreler pencere oluşturma
+maliyetini içermez.
+
+Ayna simetrisinde 150 kontrolün tamamı başarılıdır.
+Silindir tahtanın döndürülmesinde temel öznitelikler
+korunmuştur. Ancak sarmalı pencere ağırlığı sabit
+sütun sınırına bağlı olduğu için her ağırlıkta
+50 konumun 17'sinde Eval değeri değişmiştir.
+
+Bu durum değerlendirme fonksiyonunun döndürme
+simetrisi açısından bir sınırlamasıdır.
+
+Engelli varyantta engellerin konumları sabit
+olduğundan ayna simetrisi her zaman geçerli değildir.
+
+### Doğruluk Kontrolleri
+
+Yeni Eval fonksiyonuyla Minimax ve alfa-beta
+aynı arama derinliğinde eşit kök değerleri verdi.
+Önceki değerlendirme seçeneği de korundu.
+
+Toplam 63 birim testi 0.618 saniyede başarılı
+oldu.
+
+Bütün oyunlar ve performans ölçümleri kendi
+bilgisayarımda gerçekleştirildi.
 
 ## Aşama 4: Zaman Sınırlı Arama ve Ufuk Etkisi
 

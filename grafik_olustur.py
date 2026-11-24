@@ -478,3 +478,297 @@ print("grafikler/alphabeta_dugum.png")
 print("grafikler/alphabeta_sure.png")
 print("grafikler/alphabeta_maliyet.png")
 print("grafikler/alphabeta_50_konum.png")
+
+# ==========================================
+# ASAMA 3 - EVAL VE AGIRLIK GRAFIKLERI
+# ==========================================
+
+import csv
+import matplotlib.pyplot as plt
+
+from pathlib import Path
+
+Path("grafikler").mkdir(exist_ok=True)
+
+
+# Turnuva sonuclarini oku
+with open(
+    "agirlik_turnuvasi_ozet.csv",
+    "r",
+    encoding="utf-8-sig"
+) as file:
+
+    tournament_rows = list(csv.DictReader(file))
+
+
+# Ajanlari W1, W2, W3 sirasina getir
+tournament_rows.sort(
+    key=lambda row: row["Ajan"]
+)
+
+agents = [
+    row["Ajan"] for row in tournament_rows
+]
+
+wins = [
+    int(row["Galibiyet"])
+    for row in tournament_rows
+]
+
+losses = [
+    int(row["Maglubiyet"])
+    for row in tournament_rows
+]
+
+draws = [
+    int(row["Beraberlik"])
+    for row in tournament_rows
+]
+
+points = [
+    float(row["Puan"])
+    for row in tournament_rows
+]
+
+
+# ==========================================
+# 1. GRAFIK - TURNUVA SONUCLARI
+# ==========================================
+
+plt.figure(figsize=(8, 5))
+
+bars1 = plt.bar(
+    agents,
+    wins,
+    label="Galibiyet",
+    color="#16a34a"
+)
+
+bars2 = plt.bar(
+    agents,
+    draws,
+    bottom=wins,
+    label="Beraberlik",
+    color="#94a3b8"
+)
+
+bottom = [
+    win + draw
+    for win, draw in zip(wins, draws)
+]
+
+bars3 = plt.bar(
+    agents,
+    losses,
+    bottom=bottom,
+    label="Mağlubiyet",
+    color="#dc2626"
+)
+
+for bars in (bars1, bars2, bars3):
+
+    plt.bar_label(
+        bars,
+        label_type="center",
+        color="white"
+    )
+
+plt.title("Ağırlık Turnuvası Sonuçları")
+plt.xlabel("Ağırlık vektörü")
+plt.ylabel("Oyun sayısı")
+plt.ylim(0, 46)
+plt.legend(loc="upper center", ncol=3)
+plt.grid(axis="y", alpha=0.2)
+plt.tight_layout()
+
+plt.savefig(
+    "grafikler/agirlik_turnuvasi.png",
+    dpi=300
+)
+
+plt.close()
+
+
+# ==========================================
+# 2. GRAFIK - PUAN KARSILASTIRMASI
+# ==========================================
+
+plt.figure(figsize=(8, 5))
+
+bars = plt.bar(
+    agents,
+    points,
+    color=["#64748b", "#d97706", "#16a34a"]
+)
+
+plt.bar_label(bars, fmt="%.1f")
+
+plt.title("Ağırlık Vektörlerinin Turnuva Puanları")
+plt.xlabel("Ağırlık vektörü")
+plt.ylabel("Toplam puan")
+plt.ylim(0, max(points) * 1.2)
+plt.grid(axis="y", alpha=0.3)
+plt.tight_layout()
+
+plt.savefig(
+    "grafikler/agirlik_puanlari.png",
+    dpi=300
+)
+
+plt.close()
+
+
+# ==========================================
+# EVAL PERFORMANS SONUCLARINI OKU
+# ==========================================
+
+with open(
+    "eval_performans.csv",
+    "r",
+    encoding="utf-8-sig"
+) as file:
+
+    eval_rows = list(csv.DictReader(file))
+
+
+eval_rows.sort(
+    key=lambda row: row["Agirlik"]
+)
+
+eval_names = [
+    row["Agirlik"] for row in eval_rows
+]
+
+average_times = [
+    float(row["Ortalama Sure (us)"])
+    for row in eval_rows
+]
+
+median_times = [
+    float(row["Medyan Sure (us)"])
+    for row in eval_rows
+]
+
+
+# ==========================================
+# 3. GRAFIK - EVAL CALISMA SURESI
+# ==========================================
+
+plt.figure(figsize=(8, 5))
+
+x = list(range(len(eval_names)))
+
+width = 0.35
+
+bars1 = plt.bar(
+    [i - width / 2 for i in x],
+    average_times,
+    width,
+    label="Ortalama",
+    color="#2563eb"
+)
+
+bars2 = plt.bar(
+    [i + width / 2 for i in x],
+    median_times,
+    width,
+    label="Medyan",
+    color="#16a34a"
+)
+
+plt.bar_label(bars1, fmt="%.2f", fontsize=9)
+plt.bar_label(bars2, fmt="%.2f", fontsize=9)
+
+plt.xticks(x, eval_names)
+
+plt.title("Eval Fonksiyonu Çalışma Süresi")
+plt.xlabel("Ağırlık vektörü")
+plt.ylabel("Süre (mikrosaniye)")
+plt.ylim(0, max(average_times) * 1.25)
+plt.legend()
+plt.grid(axis="y", alpha=0.3)
+plt.tight_layout()
+
+plt.savefig(
+    "grafikler/eval_performans.png",
+    dpi=300
+)
+
+plt.close()
+
+
+# ==========================================
+# 4. GRAFIK - SIMETRI KONTROLLERI
+# ==========================================
+
+mirror = [
+    int(row["Ayna Simetrisi"])
+    for row in eval_rows
+]
+
+rotation_equal = [
+    int(row["Donmede Ayni"])
+    for row in eval_rows
+]
+
+rotation_changed = [
+    int(row["Donmede Degisen"])
+    for row in eval_rows
+]
+
+plt.figure(figsize=(8, 5))
+
+width = 0.25
+
+bars1 = plt.bar(
+    [i - width for i in x],
+    mirror,
+    width,
+    label="Ayna simetrisi başarılı",
+    color="#2563eb"
+)
+
+bars2 = plt.bar(
+    x,
+    rotation_equal,
+    width,
+    label="Döndürmede aynı",
+    color="#16a34a"
+)
+
+bars3 = plt.bar(
+    [i + width for i in x],
+    rotation_changed,
+    width,
+    label="Döndürmede farklı",
+    color="#d97706"
+)
+
+for bars in (bars1, bars2, bars3):
+
+    plt.bar_label(bars)
+
+plt.xticks(x, eval_names)
+
+plt.title("Eval Simetri Kontrolleri")
+plt.xlabel("Ağırlık vektörü")
+plt.ylabel("Konum sayısı")
+plt.ylim(0, 65)
+plt.legend()
+plt.grid(axis="y", alpha=0.3)
+plt.tight_layout()
+
+plt.savefig(
+    "grafikler/eval_simetri.png",
+    dpi=300
+)
+
+plt.close()
+
+
+print("\nAsama 3 grafikleri olusturuldu!")
+
+print("grafikler/agirlik_turnuvasi.png")
+print("grafikler/agirlik_puanlari.png")
+print("grafikler/eval_performans.png")
+print("grafikler/eval_simetri.png")

@@ -380,3 +380,191 @@ düğüm azalması ve çalışma süresi hesapları.
 Seçilen hamlelerin doğrulanması ve sözlü
 kontrol sorularının açıklamalarından
 yararlanıldı.
+
+## Aşama 3 - Sezgisel Değerlendirme Fonksiyonu
+
+### İstek 25
+
+Sezgisel değerlendirme fonksiyonu için K
+uzunluğundaki pencerelerin önceden
+hesaplanması konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+evaluate.py dosyasındaki Window ve Evaluator
+sınıfları, build_windows(), unavailable_cells()
+ve window_statistics() fonksiyonlarının kodları.
+
+Yatay, dikey, çapraz ve silindir varyantına
+özgü sarmalı pencerelerin hesaplanması,
+tekrarlanan pencerelerin engellenmesi ve
+engelli hücrelerin elenmesi için verilen
+kodlardan yararlanıldı.
+
+Dört farklı varyant için pencere kontrolleri
+hazırlandı.
+
+### İstek 26
+
+Sezgisel değerlendirme fonksiyonunda
+kullanılacak özniteliklerin hesaplanması
+konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+evaluate.py dosyasına eklenen features()
+fonksiyonu ve altı özniteliğin hesaplanması.
+
+MAX ve MIN oyuncularına ait K-1, K-2
+pencereleri ve silindir varyantına özgü
+sarmalı pencerelerin sayılması için verilen
+kodlardan yararlanıldı.
+
+Karışık pencerelerin elenmesi,
+feature_test.py kontrol programı ve
+test_evaluate.py dosyasındaki dokuz
+birim testi için verilen kodlar kullanıldı.
+
+### İstek 27
+
+Sezgisel değerlendirme fonksiyonunun
+oluşturulması konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+Varsayılan ağırlıkların belirlenmesi,
+Evaluator sınıfının güncellenmesi,
+raw_score() ve evaluate() fonksiyonlarının
+kodları.
+
+Tanh fonksiyonuyla değerlendirme sonucunun
+sınırlandırılması, terminal değerlerinin
+korunması ve Misere varyantında puan
+işaretlerinin değiştirilmesi için verilen
+kodlardan yararlanıldı.
+
+feature_test.py dosyasına değerlendirme
+sonuçlarının eklenmesi ve sekiz yeni
+birim testinin hazırlanması sağlandı.
+### İstek 28
+
+Sezgisel değerlendirme fonksiyonunun
+Minimax ve alfa-beta algoritmalarına
+bağlanması konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+search.py dosyasının güncellenmesi,
+isteğe bağlı evaluator parametresinin
+eklenmesi ve eski değerlendirme
+davranışının korunması.
+
+eval_arama_test.py dosyasında eski ve
+yeni algoritmaların karşılaştırılması
+için verilen kodlardan yararlanıldı.
+
+test_eval_search.py dosyasındaki altı
+birim testi, terminal kontrolünün
+Eval'den önce yapılması ve algoritmaların
+doğruluk karşılaştırması için verilen
+kodlar kullanıldı.
+
+### İstek 29
+
+Sezgisel değerlendirme fonksiyonu için
+üç farklı ağırlık vektörünün hazırlanması
+konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+agirliklar.py dosyasının kodları,
+W1, W2 ve W3 ağırlık vektörlerinin
+oluşturulması ve create_evaluator()
+fonksiyonu.
+
+Dengeli, tehdit odaklı ve silindir
+varyantında gelişim odaklı stratejilerin
+belirlenmesinden yararlanıldı.
+
+Ağırlık vektörlerinin farklı oyun
+konumlarında değerlendirilmesi ve
+60 oyunluk karşılaştırmanın planlanması
+için verilen kodlar ve açıklamalar kullanıldı.
+
+Ağırlıkların gerçek başarısı oyun
+deneyleriyle ölçülecektir.
+
+### İstek 30
+
+Üç farklı ağırlık vektörünün karşılıklı
+oyun oynatılarak karşılaştırılması konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+agirlik_turnuvasi.py dosyasının kodları,
+seed 27 ile rastgele başlangıçların
+oluşturulması ve derinlik 5 alfa-beta
+ajanlarının karşılıklı oynatılması.
+
+Her ağırlık çiftinin iki farklı oyuncu
+yönünde 10'ar oyun oynatılması ve toplam
+60 oyunun sonuçlarının kaydedilmesi
+için verilen kodlardan yararlanıldı.
+
+Galibiyet matrisi, puan tablosu ve
+CSV dosyalarının oluşturulması sağlandı.
+
+Oyunlar ve performans ölçümleri kendi
+bilgisayarımda gerçekleştirildi.
+
+### İstek 31
+
+Sezgisel değerlendirme fonksiyonunun
+performansının ve simetri özelliklerinin
+ölçülmesi konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+eval_performans.py dosyasının kodları,
+50 rastgele konumda üç ağırlık vektörünün
+çalışma sürelerinin ölçülmesi ve sonuçların
+CSV dosyasına kaydedilmesi.
+
+Sol-sağ ayna simetrisi, silindir tahtanın
+döndürülmesi ve sarmalı pencere ağırlığının
+değerlendirme sonucuna etkisi incelendi.
+
+test_eval_quality.py dosyasındaki beş
+yeni birim testinin kodlarından yararlanıldı.
+
+Ölçümler kendi bilgisayarımda gerçekleştirildi.
+
+### İstek 32
+
+Sezgisel değerlendirme fonksiyonu aşamasının
+raporlanması konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+Aşama 3 rapor metni, ağırlık vektörü tablosu,
+galibiyet matrisi, turnuva sonuçlarının
+yorumlanması ve Eval performans tablosu.
+
+grafik_olustur.py dosyasına eklenen dört
+yeni grafik için verilen kodlardan yararlanıldı.
+
+W3 ağırlık vektörünün seçilmesi ve silindir
+varyantındaki döndürme simetrisi sınırlamasının
+açıklanması konusunda yardım alındı.
+
+Rapordaki bütün deney sonuçları kendi
+bilgisayarımda elde edilen gerçek ölçümlerdir.
+
+### İstek 33
+
+Sezgisel değerlendirme fonksiyonunun kontrol
+noktası ve sözlü sınav hazırlığı konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+kontrol3.py dosyasının kodları, oyun
+konumlarının oluşturulması, özniteliklerin
+ve puanlanan pencerelerin gösterilmesi.
+
+Üç ağırlık vektörünün ham puan ve Eval
+değerlerinin formül üzerinden doğrulanması,
+W3 ağırlıkları ile alfa-beta araması ve
+sözlü kontrol sorularından yararlanıldı.
