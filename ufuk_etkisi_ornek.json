@@ -1,0 +1,105 @@
+{
+    "opening": [
+        3,
+        5,
+        2,
+        2
+    ],
+    "moves": [
+        3,
+        5,
+        2,
+        2,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        2,
+        1,
+        1,
+        4,
+        4
+    ],
+    "player": -1,
+    "shallow_depth": 1,
+    "deep_depth": 2,
+    "bad_move": 5,
+    "shallow_value": 0.197375320224904,
+    "bad_deep_value": 1,
+    "better_move": 3,
+    "better_value": 0.5827829453479101,
+    "opponent_winning_moves": [
+        5
+    ],
+    "opponent_reply": 5,
+    "final_moves": [
+        3,
+        5,
+        2,
+        2,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        2,
+        1,
+        1,
+        4,
+        4,
+        5,
+        5
+    ],
+    "utility": 1,
+    "games_checked": 2,
+    "depth_results": [
+        {
+            "depth": 1,
+            "move": 5,
+            "value": 0.197375320224904,
+            "bad_move_value": 0.197375320224904,
+            "nodes": 5
+        },
+        {
+            "depth": 2,
+            "move": 3,
+            "value": 0.5827829453479101,
+            "bad_move_value": 1,
+            "nodes": 21
+        },
+        {
+            "depth": 3,
+            "move": 3,
+            "value": 0.13254878839087839,
+            "bad_move_value": 1,
+            "nodes": 68
+        },
+        {
+            "depth": 4,
+            "move": 3,
+            "value": 0.6640367702678489,
+            "bad_move_value": 1,
+            "nodes": 204
+        },
+        {
+            "depth": 5,
+            "move": 3,
+            "value": 0.32151273753163434,
+            "bad_move_value": 1,
+            "nodes": 482
+        }
+    ],
+    "R": 5,
+    "C": 6,
+    "K": 5,
+    "V": 1,
+    "weight": "W3",
+    "order": "A"
+}

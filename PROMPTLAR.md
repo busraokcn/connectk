@@ -568,3 +568,232 @@ ve puanlanan pencerelerin gösterilmesi.
 değerlerinin formül üzerinden doğrulanması,
 W3 ağırlıkları ile alfa-beta araması ve
 sözlü kontrol sorularından yararlanıldı.
+
+## Aşama 4 - Zaman Sınırlı Arama
+
+### İstek 34
+
+İteratif derinleşme ve zaman sınırlı arama
+algoritmasının geliştirilmesi konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+timed_search.py dosyasındaki TimedAlphaBeta,
+SearchTimeout, DepthResult ve TimedResult
+sınıflarının kodları.
+
+Her 1000 düğümde süre kontrolü yapılması,
+yarım kalan iterasyonun iptal edilmesi ve
+son tamamlanan hamlenin korunması için
+verilen kodlardan yararlanıldı.
+
+Önceki iterasyonun en iyi hamlesinin
+sonraki iterasyonda ilk sıraya alınması
+ve zaman sınırı için güvenlik payı
+bırakılması uygulandı.
+
+zamanli_arama_test.py dosyasındaki doğruluk
+ve performans kontrolleri hazırlandı.
+
+### İstek 35
+
+Zobrist Hashing algoritmasının geliştirilmesi
+konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+zobrist.py dosyasındaki ZobristHash sınıfı,
+seed 27 ile 64 bitlik rastgele anahtarların
+üretilmesi ve hash_state() fonksiyonunun
+kodları.
+
+XOR işlemiyle tahta anahtarının hesaplanması,
+sıradaki oyuncunun ve engelli hücrelerin
+hash hesabına dahil edilmesi için verilen
+kodlardan yararlanıldı.
+
+Aynı konuma farklı hamle sıralarıyla ulaşma,
+seed tekrarlanabilirliği ve 64 bit kontrolü
+için test_evaluate dosyasından bağımsız
+test_zobrist.py dosyasında yedi yeni
+birim testi hazırlandı.
+
+### İstek 36
+
+Artımlı Zobrist hash hesaplama algoritmasının
+geliştirilmesi konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+zobrist.py dosyasındaki update_hash()
+fonksiyonunun kodları.
+
+Bütün tahtayı yeniden hesaplamak yerine
+son hamlenin taş anahtarı ve oyuncu sırası
+anahtarının XOR işlemi ile güncellenmesi
+uygulandı.
+
+zobrist_performans.py dosyasında dört
+farklı varyantta toplam 40 rastgele oyun
+oluşturulması, tam ve artımlı hash
+hesaplamalarının doğrulanması ve çalışma
+sürelerinin karşılaştırılması için verilen
+kodlardan yararlanıldı.
+
+test_incremental_hash.py dosyasındaki
+altı yeni birim testi hazırlandı.
+
+Performans ölçümleri kendi bilgisayarımda
+gerçekleştirildi.
+
+### İstek 37
+
+Transposition Table sisteminin geliştirilmesi
+ve zaman sınırlı alfa-beta algoritmasına
+bağlanması konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+tt_search.py dosyasındaki TTEntry ve
+TTAlphaBeta sınıflarının kodları.
+
+EXACT, LOWER ve UPPER bayraklarının
+belirlenmesi, derinlik kontrolü, hash
+çakışması kontrolü ve tablo kapasitesinin
+sınırlandırılması uygulandı.
+
+Zobrist anahtarları alt konumlarda
+artımlı olarak güncellendi.
+
+Tablodaki en iyi hamlenin hamle
+sıralamasında kullanılması sağlandı.
+
+tt_ilk_test.py dosyasındaki doğruluk
+karşılaştırması ve test_tt.py dosyasındaki
+dokuz yeni birim testinin kodlarından
+yararlanıldı.
+
+### İstek 38
+
+Transposition Table doğruluk ve performans
+karşılaştırmalarının hazırlanması konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+tt_dogruluk.py ve tt_performans.py
+dosyalarının kodları.
+
+Aşama 2'de oluşturulan 50 rastgele konum
+eski değerlendirme ve W3 değerlendirmesi
+ile yeniden test edildi.
+
+Minimax, TT açık ve TT kapalı algoritmaların
+kök değerlerinin ve seçilen hamlelerin
+karşılaştırılması sağlandı.
+
+10 farklı konumda bir saniyelik aramalar
+yapılarak TT açık ve kapalı yöntemlerin
+ulaştığı derinlikler, düğüm sayıları ve
+çalışma süreleri ölçüldü.
+
+Deney sonuçları CSV dosyalarına kaydedildi.
+
+Bütün ölçümler kendi bilgisayarımda
+gerçekleştirildi.
+
+### İstek 39
+
+Ufuk etkisinin gerçek bir oyun konumu
+üzerinden incelenmesi konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+ufuk_etkisi.py dosyasının kodları.
+
+Aynı W3 değerlendirme fonksiyonunu
+kullanan farklı derinliklerdeki alfa-beta
+ajanlarının karşılıklı oynatılması sağlandı.
+
+Sığ aramada seçilen kötü hamlenin daha
+derin aramadaki değeri Minimax ile
+bağımsız olarak doğrulandı.
+
+Derinlik 1 ile 5 arasındaki sonuçlar
+karşılaştırıldı. Bulunan oyun konumu
+ufuk_etkisi_ornek.json dosyasına kaydedildi.
+
+Deney kendi bilgisayarımda gerçekleştirildi.
+
+### İstek 40
+
+Ufuk etkisini azaltmak için tehdit uzatma
+algoritmasının geliştirilmesi konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+threat_search.py dosyasındaki
+ThreatAlphaBeta sınıfının kodları.
+
+Derinlik sınırında oyuncuların acil
+kazanma tehditlerinin kontrol edilmesi
+ve gerektiğinde aramanın bir hamle
+uzatılması sağlandı.
+
+tehdit_uzatma_test.py dosyasında
+önceki ufuk etkisi örneği kullanılarak
+normal arama ile tehdit uzatmalı
+arama karşılaştırıldı.
+
+test_threat.py dosyasındaki altı
+yeni birim testinden yararlanıldı.
+
+Ölçümler kendi bilgisayarımda
+gerçekleştirildi.
+
+### İstek 41
+
+Zaman sınırlı arama algoritmasının son
+doğruluk ve performans kontrollerinin
+hazırlanması konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+son_performans_testi.py dosyasının kodları.
+
+Normal TT ajanı ve tehdit uzatmalı ajan
+15 farklı oyun konumunda karşılaştırıldı.
+Toplam 30 zaman sınırlı arama yapıldı.
+
+7x8 boyutundaki tahtada dört farklı
+varyantın test edilmesi sağlandı.
+
+test_final_search.py dosyasında süre
+dolması, yarım kalan iterasyonlar, yasal
+yedek hamle ve farklı varyantlarda TT
+doğruluğu için altı yeni test hazırlandı.
+
+Deney sonuçları CSV dosyalarına kaydedildi.
+
+Ölçümler kendi bilgisayarımda gerçekleştirildi.
+
+### İstek 42
+
+Aşama 4 raporunun, grafiklerinin ve
+kontrol noktası programının hazırlanması
+konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+İteratif derinleşme, Zobrist Hashing,
+Transposition Table, ufuk etkisi ve
+tehdit uzatma deneylerinin raporlanması.
+
+grafik_asama4.py dosyasında gerçek CSV
+sonuçlarından dört grafik oluşturulması
+için verilen kodlardan yararlanıldı.
+
+kontrol4.py dosyasında 10 konumluk
+otomatik deney ve elle hamle girme
+özellikleri hazırlandı.
+
+Normal TT ajanının turnuva için başlangıç
+tercihi olarak belirlenmesinde performans
+sonuçları değerlendirildi.
+
+Bütün deney sonuçları kendi bilgisayarımda
+elde edilmiştir.

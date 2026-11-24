@@ -407,7 +407,160 @@ oldu.
 Bütün oyunlar ve performans ölçümleri kendi
 bilgisayarımda gerçekleştirildi.
 
-## Aşama 4: Zaman Sınırlı Arama ve Ufuk Etkisi
+## Aşama 4: Zaman Sınırlı Arama
+
+### İteratif Derinleşme
+
+Arama derinliği 1'den başlayarak kademeli
+olarak artırıldı. Süre dolduğunda yarım kalan
+iterasyon iptal edildi ve son tamamlanan
+iterasyonun hamlesi korundu.
+
+Önceki en iyi hamle sonraki iterasyonda ilk
+sıraya alındı. Bir saniyelik süre sınırı için
+100 ms güvenlik payı bırakıldı.
+
+İlk dört konumda ortalama 8.25 derinliğe
+ulaşıldı. En uzun arama 0.919702 saniye sürdü.
+
+### Zobrist Hashing
+
+Seed 27 kullanılarak her hücre ve taş türü
+için 64 bitlik rastgele anahtar üretildi.
+Oyuncu sırası ve engelli hücreler de hash
+hesabına dahil edildi.
+
+Artımlı hash hesaplamasında yalnızca yeni
+eklenen taş ve oyuncu sırası güncellendi.
+
+Tam hash O(R*C), artımlı hash O(1) zaman
+karmaşıklığına sahiptir.
+
+40 rastgele oyunda toplam 1048 hamlenin
+hash değeri başarıyla doğrulandı.
+
+| Varyant | Tam hash (us) | Artımlı hash (us) | Hızlanma |
+|---|---:|---:|---:|
+| Standart | 2.917284 | 0.221702 | 13.159 |
+| Silindir | 2.544398 | 0.227359 | 11.191 |
+| Misere | 2.824080 | 0.211604 | 13.346 |
+| Engelli | 2.251409 | 0.216142 | 10.416 |
+
+Kendi silindir varyantımda hash hesaplama
+süresi yaklaşık 11.19 kat hızlandı.
+Bu sonuç tüm aramanın hızlanma oranı değildir.
+
+### Transposition Table
+
+Zobrist anahtarları kullanılarak daha önce
+araştırılan konumların sonuçları saklandı.
+
+Tabloda derinlik, değer, EXACT/LOWER/UPPER
+bayrağı ve en iyi hamle bilgisi tutuldu.
+
+Hash çakışmalarına karşı tahta ve oyuncu
+bilgileri karşılaştırıldı.
+
+Sabit derinlik doğruluğunu korumak için
+yalnızca aynı derinlikteki kayıtlı değerler
+doğrudan kullanıldı. Diğer derinliklerdeki
+kayıtlar hamle sıralamasında kullanıldı.
+
+50 rastgele konum eski Eval ve W3 Eval
+ile test edildi. Toplam 100 doğruluk
+karşılaştırmasının tamamı başarılı oldu.
+
+| Ölçüm | Eski Eval | W3 Eval |
+|---|---:|---:|
+| TT kapalı düğüm | 827.58 | 3441 |
+| TT açık düğüm | 579.18 | 2265.66 |
+| Ortalama düğüm azalması (%) | 29.71 | 31.51 |
+| TT kapalı süre (ms) | 7.934 | 83.620 |
+| TT açık süre (ms) | 6.218 | 48.121 |
+
+### Bir Saniyelik TT Karşılaştırması
+
+10 konumda TT açık ve kapalı olmak üzere
+toplam 20 zaman sınırlı arama yapıldı.
+
+| Ölçüm | TT kapalı | TT açık |
+|---|---:|---:|
+| Ortalama derinlik | 8.6 | 10.5 |
+| Ortalama düğüm | 38465.10 | 32327.80 |
+| Ortalama süre (s) | 0.851889 | 0.672325 |
+| En uzun süre (s) | 0.920616 | 0.918995 |
+
+TT açıkken 8 konumda daha yüksek derinliğe
+ulaşıldı. İki konumda derinlik değişmedi.
+Hiçbir arama bir saniyeyi aşmadı.
+
+![TT derinlik karşılaştırması](grafikler/tt_derinlik.png)
+
+### Ufuk Etkisi ve Tehdit Uzatma
+
+Farklı derinliklerdeki iki ajan karşılıklı
+oynatıldı. İkinci oyunda ufuk etkisine
+neden olan bir konum bulundu.
+
+Derinlik 1'de MIN oyuncusu 5 numaralı
+sütunu seçti. MAX aynı sütuna taş bırakarak
+sarmalı çapraz kazanma dizisini tamamladı.
+
+Derinlik 2'de arama 3 numaralı sütunu
+seçerek doğrudan kaybı önledi.
+
+Tehdit uzatma yöntemiyle derinlik sınırında
+bir hamlelik kazanma tehditleri kontrol
+edildi. Gerekli durumlarda arama uzatıldı.
+
+| Derinlik | Normal hamle | Uzatmalı hamle | Normal düğüm | Uzatmalı düğüm |
+|---|---:|---:|---:|---:|
+| 1 | 5 | 3 | 5 | 9 |
+| 2 | 3 | 3 | 21 | 42 |
+| 3 | 3 | 3 | 68 | 148 |
+| 4 | 3 | 3 | 189 | 401 |
+| 5 | 3 | 3 | 407 | 765 |
+
+Tehdit uzatma doğrudan kaybettiren hamleyi
+önledi ancak ek işlem maliyeti oluşturdu.
+
+Tam derinlikte yapılan sonraki aramada bu
+konumun MIN için zorunlu kayıp olduğu görüldü.
+Dolayısıyla uzatma yöntemi nihai kaybı değil,
+erken yapılan taktik hatayı önlemiştir.
+
+### Son Performans ve Doğruluk Kontrolleri
+
+15 oyun konumunda normal TT ve tehdit
+uzatmalı arama karşılaştırıldı. İki yöntemde
+de zaman kontrol aralığı 100 düğüm seçildi.
+
+| Ölçüm | Normal TT | Tehdit uzatma |
+|---|---:|---:|
+| Başarılı arama | 15/15 | 15/15 |
+| Ortalama derinlik | 9.8 | 8.8 |
+| Ortalama düğüm | 29694.40 | 14621.73 |
+| Ortalama süre (s) | 0.688635 | 0.735628 |
+| En uzun süre (s) | 0.902809 | 0.906333 |
+
+7x8 boyutundaki tahtada dört farklı
+varyant başarıyla test edildi.
+
+Toplam 30 aramanın hiçbirinde bir saniyelik
+süre sınırı aşılmadı. Bu ölçüm sonuçları
+bütün olası konumlar için kesin süre
+garantisi anlamına gelmemektedir.
+
+97 birim testinin tamamı 0.971 saniyede
+başarılı oldu.
+
+Normal TT ajanı ulaştığı ortalama arama
+derinliği nedeniyle turnuva için başlangıç
+tercihi olarak belirlendi. Tehdit uzatmalı
+ajan alternatif olarak korundu.
+
+Bütün deneyler kendi bilgisayarımda
+gerçekleştirildi.
 
 ## Aşama 5: Turnuva ve Yenilgi Analizi
 
