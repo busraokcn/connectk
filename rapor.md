@@ -87,6 +87,73 @@ taş yerleştirme, kazanma, beraberlik, geçersiz
 hamleler ve Perft kontrolleri başarılı oldu.
 
 ## Aşama 1: Minimax
+Minimax algoritması max_value(), min_value()
+ve choose_move() fonksiyonları kullanılarak
+oluşturuldu. Terminal durum kontrolü,
+derinlik sınırı kontrolünden önce yapıldı.
+
+Geçici değerlendirme fonksiyonu 0 döndürmektedir.
+Eşit değerli hamlelerde merkeze yakın sütunlara
+öncelik verilmiştir. Düğüm sayacına kök düğüm
+de dahil edilmiştir.
+
+### Minimax Performans Ölçümleri
+
+| Konum | Derinlik | Hamle | Değer | Düğüm | Süre (ms) | b_etkin |
+|---|---:|---:|---:|---:|---:|---:|
+| Boş tahta | 2 | 2 | 0 | 43 | 0.378 | 6.557 |
+| Boş tahta | 4 | 2 | 0 | 1555 | 11.662 | 6.280 |
+| Boş tahta | 6 | 2 | 0 | 55981 | 385.038 | 6.185 |
+| MAX kazanma | 2 | 0 | 1 | 37 | 0.282 | 6.083 |
+| MAX kazanma | 4 | 0 | 1 | 1067 | 8.469 | 5.715 |
+| MAX kazanma | 6 | 0 | 1 | 28315 | 206.582 | 5.521 |
+| Rakibi engelleme | 2 | 0 | 0 | 42 | 0.325 | 6.481 |
+| Rakibi engelleme | 4 | 0 | 0 | 1215 | 8.858 | 5.904 |
+| Rakibi engelleme | 6 | 0 | 0 | 32999 | 239.807 | 5.663 |
+| MIN kazanma | 2 | 0 | -1 | 37 | 0.513 | 6.083 |
+| MIN kazanma | 4 | 0 | -1 | 1085 | 10.062 | 5.739 |
+| MIN kazanma | 6 | 0 | -1 | 29490 | 212.767 | 5.558 |
+| Dolu sütun | 2 | 2 | 0 | 31 | 0.413 | 5.568 |
+| Dolu sütun | 4 | 2 | 0 | 781 | 5.427 | 5.286 |
+| Dolu sütun | 6 | 2 | 0 | 19526 | 146.922 | 5.189 |
+
+![Minimax düğüm sayısı](grafikler/minimax_dugum.png)
+
+### Etkin Dallanma Çarpanı ve Yorum
+
+Etkin dallanma çarpanı, düğüm sayısının
+1/derinlik kuvveti alınarak hesaplandı.
+
+Boş tahtada derinlik 2 için 43 düğüm ziyaret
+edildi. Bu sonuç 1 + 6 + 36 hesabıyla uyumludur.
+
+Derinlik arttıkça düğüm sayısı ve çalışma süresi
+artmıştır. Boş tahtada etkin dallanma çarpanı
+6 değerine yaklaşırken dolu sütun bulunan
+konumda 5 değerine yaklaşmıştır.
+
+Bunun nedeni dolu sütunların yasal hamle
+sayısını azaltmasıdır. Kazanma konumlarında
+ise terminal kontrolü sayesinde bazı dallar
+daha erken sona ermiştir.
+
+Minimax algoritması test edilen konumlarda
+kazanma ve rakibi engelleme hamlelerini
+doğru şekilde seçmiştir.
+
+### Birim Testleri
+
+- Minimax test sayısı: 10
+- Başarılı Minimax testi: 10
+- Minimax test süresi: 0.028 saniye
+- Toplam birim testi: 26
+- Başarısız test: 0
+- Toplam test süresi: 0.382 saniye
+
+Not: Ölçümler beş örnek konum üzerinden kendi
+bilgisayarımda gerçekleştirilmiştir.
+Öğretmenin vereceği konumlar için ölçümler
+ayrıca tekrarlanacaktır.
 
 ## Aşama 2: Alfa-Beta Budaması ve Hamle Sıralaması
 

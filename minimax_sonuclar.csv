@@ -1,0 +1,16 @@
+﻿Konum,Derinlik,Hamle,Minimax Degeri,Dugum Sayisi,Sure (ms),Etkin Dallanma Carpani
+Bos tahta,2,2,0,43,0.378,6.557
+Bos tahta,4,2,0,1555,11.662,6.28
+Bos tahta,6,2,0,55981,385.038,6.185
+MAX kazanma,2,0,1,37,0.282,6.083
+MAX kazanma,4,0,1,1067,8.469,5.715
+MAX kazanma,6,0,1,28315,206.582,5.521
+Rakibi engelleme,2,0,0,42,0.325,6.481
+Rakibi engelleme,4,0,0,1215,8.858,5.904
+Rakibi engelleme,6,0,0,32999,239.807,5.663
+MIN kazanma,2,0,-1,37,0.513,6.083
+MIN kazanma,4,0,-1,1085,10.062,5.739
+MIN kazanma,6,0,-1,29490,212.767,5.558
+Dolu sutun,2,2,0,31,0.413,5.568
+Dolu sutun,4,2,0,781,5.427,5.286
+Dolu sutun,6,2,0,19526,146.922,5.189

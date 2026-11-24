@@ -144,3 +144,82 @@ ChatGPT'den yardım aldım.
 Kullanılan kısım:
 kontrol0.py dosyasının kodları, örnek
 hamle dizileri ve sözlü kontrol soruları.
+
+## Aşama 1 - Minimax Algoritması
+
+### İstek 12
+
+Minimax algoritmasının derinlik sınırı ile
+oluşturulması konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+search.py dosyasındaki Minimax sınıfı,
+max_value(), min_value(), choose_move(),
+evaluate() ve ordered_actions() fonksiyonlarının
+kodları ve açıklamaları.
+
+Düğüm sayacı, terminal kontrolü, eşit değerli
+hamlelerde seçim kuralı ve geçici değerlendirme
+fonksiyonu için verilen kodlardan yararlanıldı.
+
+Boş tahta, kazanma, rakibi engelleme ve
+tekrarlanabilirlik için test kodları kullanıldı.
+### İstek 13
+
+Minimax algoritmasının farklı oyun konumlarında
+ve farklı derinliklerde performansının ölçülmesi
+konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+minimax_olcum.py dosyasının kodları,
+beş örnek oyun konumu, çalışma süresi ölçümü,
+etkin dallanma çarpanı hesabı ve sonuçların
+CSV dosyasına kaydedilmesi.
+
+Ölçümler kendi bilgisayarımda gerçekleştirildi.
+Öğretmenin vereceği konumlar için ölçümler
+ayrıca tekrarlanacaktır.
+### İstek 14
+
+Minimax algoritmasının doğruluğunu kontrol
+etmek için birim testlerinin hazırlanması
+konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+test_search.py dosyasındaki 10 birim testinin
+kodları ve açıklamaları.
+
+Kazanma, rakibi engelleme, düğüm sayısı,
+tekrarlanabilirlik, terminal durum, derinlik
+sınırı ve oyun durumunun değişmemesi için
+hazırlanan testlerden yararlanıldı.
+
+### İstek 15
+
+Minimax performans ölçümlerinin raporlanması,
+grafiklerin oluşturulması ve sonuçların
+yorumlanması konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+Rapor metni, performans tablosu ve
+grafik_olustur.py dosyasına eklenen
+Minimax grafik kodları.
+
+Grafiklerin CSV dosyasındaki ölçümlerden
+otomatik olarak oluşturulması sağlandı.
+
+Rapordaki ölçümler ve test süreleri kendi
+bilgisayarımda elde ettiğim sonuçlardan alındı.
+
+### İstek 16
+
+Minimax algoritması için kontrol noktası 1
+hazırlığı ve öğretmenin vereceği hamle
+dizilerinin test edilmesi konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+kontrol1.py dosyasının kodları,
+kazanma ve rakibi engelleme konumları,
+derinlik bazlı ölçüm tablosu ve
+sözlü kontrol sorularının açıklamaları.
