@@ -797,3 +797,56 @@ sonuçları değerlendirildi.
 
 Bütün deney sonuçları kendi bilgisayarımda
 elde edilmiştir.
+
+## Aşama 5 - Turnuva ve Savunma
+
+### İstek 43
+
+Turnuva protokolüne uygun agent.py
+dosyasının geliştirilmesi konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+argparse ile komut satırı parametrelerinin
+alınması ve ArenaAgent sınıfının kodları.
+
+MOVES ve QUIT komutlarının işlenmesi,
+hamle dizisinden oyun tahtasının
+oluşturulması ve zaman sınırlı alfa-beta
+algoritmasının bağlanması sağlandı.
+
+Standart çıktıya yalnızca sütun numarası
+yazılması, flush kullanımı ve hata
+ayıklama bilgilerinin stderr üzerinden
+gönderilmesi uygulandı.
+
+Normal TT ve tehdit uzatmalı ajanlar
+komut satırı üzerinden seçilebilir
+hale getirildi.
+
+### İstek 44
+
+Turnuva ajanının otomatik protokol
+testlerinin hazırlanması konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+tests/test_agent.py dosyasındaki
+dokuz yeni birim testinin kodları.
+
+subprocess kütüphanesi kullanılarak
+ajanın ayrı bir süreçte çalıştırılması,
+MOVES ve QUIT komutlarının gönderilmesi
+ve çıktılarının kontrol edilmesi sağlandı.
+
+stdout ve stderr ayrımı, dolu sütun,
+terminal durum, geçersiz komut ve EOF
+kontrolleri gerçekleştirildi.
+
+Canlı iletişim sırasında flush ve
+bir saniyelik süre sınırı test edildi.
+
+Normal TT ve tehdit uzatmalı ajanların
+protokole uygunluğu kontrol edildi.
+
+Testler kendi bilgisayarımda çalıştırıldı.
