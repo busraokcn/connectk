@@ -272,3 +272,209 @@ print("\nMinimax grafikleri olusturuldu!")
 print("grafikler/minimax_dugum.png")
 print("grafikler/minimax_sure.png")
 print("grafikler/minimax_dallanma.png")
+
+# ==========================================
+# ASAMA 2 - ALPHA BETA GRAFIKLERI
+# ==========================================
+
+import csv
+from pathlib import Path
+
+Path("grafikler").mkdir(exist_ok=True)
+
+
+# Siralama ozetlerini oku
+with open(
+    "siralama_ozet.csv",
+    "r",
+    encoding="utf-8-sig"
+) as file:
+
+    reader = csv.DictReader(file)
+    summary = list(reader)
+
+
+methods = [
+    row["Yontem"] for row in summary
+]
+
+avg_nodes = [
+    float(row["Ortalama Dugum"])
+    for row in summary
+]
+
+avg_times = [
+    float(row["Ortalama Sure (ms)"])
+    for row in summary
+]
+
+order_times = [
+    float(row["Ortalama Siralama Sure (ms)"])
+    for row in summary
+]
+
+remaining_times = [
+    total - order
+    for total, order in zip(
+        avg_times, order_times
+    )
+]
+
+colors = [
+    "#64748b",
+    "#2563eb",
+    "#16a34a"
+]
+
+
+# 1. Grafik: Ortalama dugum sayisi
+plt.figure(figsize=(8, 5))
+
+bars = plt.bar(
+    methods,
+    avg_nodes,
+    color=colors
+)
+
+plt.bar_label(bars, fmt="%.2f")
+
+plt.title("Alfa-Beta - Ortalama Düğüm Sayısı")
+plt.xlabel("Hamle sıralama yöntemi")
+plt.ylabel("Ortalama düğüm sayısı")
+plt.ylim(0, max(avg_nodes) * 1.2)
+plt.grid(axis="y", alpha=0.3)
+plt.tight_layout()
+
+plt.savefig(
+    "grafikler/alphabeta_dugum.png",
+    dpi=300
+)
+
+plt.close()
+
+
+# 2. Grafik: Ortalama calisma suresi
+plt.figure(figsize=(8, 5))
+
+bars = plt.bar(
+    methods,
+    avg_times,
+    color=colors
+)
+
+plt.bar_label(bars, fmt="%.3f")
+
+plt.title("Alfa-Beta - Ortalama Çalışma Süresi")
+plt.xlabel("Hamle sıralama yöntemi")
+plt.ylabel("Süre (ms)")
+plt.ylim(0, max(avg_times) * 1.2)
+plt.grid(axis="y", alpha=0.3)
+plt.tight_layout()
+
+plt.savefig(
+    "grafikler/alphabeta_sure.png",
+    dpi=300
+)
+
+plt.close()
+
+
+# 3. Grafik: Siralama maliyeti
+plt.figure(figsize=(8, 5))
+
+plt.bar(
+    methods,
+    order_times,
+    label="Hamle listesi hazırlama",
+    color="#f59e0b"
+)
+
+plt.bar(
+    methods,
+    remaining_times,
+    bottom=order_times,
+    label="Diğer arama işlemleri",
+    color="#2563eb"
+)
+
+plt.title("Alfa-Beta - Sıralama Maliyeti")
+plt.xlabel("Hamle sıralama yöntemi")
+plt.ylabel("Süre (ms)")
+plt.legend()
+plt.grid(axis="y", alpha=0.3)
+plt.tight_layout()
+
+plt.savefig(
+    "grafikler/alphabeta_maliyet.png",
+    dpi=300
+)
+
+plt.close()
+
+
+# 4. Grafik: 50 konumda karsilastirma
+with open(
+    "siralama_sonuclar.csv",
+    "r",
+    encoding="utf-8-sig"
+) as file:
+
+    reader = csv.DictReader(file)
+    all_results = list(reader)
+
+
+plt.figure(figsize=(12, 6))
+
+# Minimax referans dugumleri
+reference = [
+    row for row in all_results
+    if row["Yontem"] == "A"
+]
+
+plt.plot(
+    [int(row["Konum"]) for row in reference],
+    [int(row["Minimax Dugum"]) for row in reference],
+    label="Minimax",
+    linestyle="--",
+    color="black"
+)
+
+
+# A, B ve C yontemleri
+for method in methods:
+
+    rows = [
+        row for row in all_results
+        if row["Yontem"] == method
+    ]
+
+    plt.plot(
+        [int(row["Konum"]) for row in rows],
+        [int(row["AlphaBeta Dugum"]) for row in rows],
+        label=f"Alfa-Beta {method}",
+        marker="o",
+        markersize=3
+    )
+
+
+plt.title("50 Rastgele Konumda Düğüm Karşılaştırması")
+plt.xlabel("Oyun konumu")
+plt.ylabel("Düğüm sayısı")
+plt.yscale("log")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+
+plt.savefig(
+    "grafikler/alphabeta_50_konum.png",
+    dpi=300
+)
+
+plt.close()
+
+
+print("\nAlpha-Beta grafikleri olusturuldu!")
+print("grafikler/alphabeta_dugum.png")
+print("grafikler/alphabeta_sure.png")
+print("grafikler/alphabeta_maliyet.png")
+print("grafikler/alphabeta_50_konum.png")

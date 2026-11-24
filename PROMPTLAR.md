@@ -223,3 +223,160 @@ kontrol1.py dosyasının kodları,
 kazanma ve rakibi engelleme konumları,
 derinlik bazlı ölçüm tablosu ve
 sözlü kontrol sorularının açıklamaları.
+
+## Aşama 2 - Alfa-Beta Budaması
+
+### İstek 17
+
+Alfa-beta budaması algoritmasının oluşturulması
+ve Minimax ile karşılaştırılması konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+search.py dosyasına eklenen AlphaBeta sınıfı,
+alpha ve beta sınırları, max_value(),
+min_value() ve choose_move() fonksiyonlarının
+kodları ve açıklamaları.
+
+alphabeta_ilk_test.py dosyasındaki beş örnek
+konum, düğüm azalması hesabı, kök değerinin
+ve seçilen hamlenin doğruluk kontrolleri
+için verilen kodlar kullanıldı.
+
+İlk aşamada hamle sıralaması uygulanmadı.
+
+### İstek 18
+
+Alfa-beta ve Minimax algoritmalarının
+karşılaştırılabilmesi için 50 rastgele oyun
+konumunun oluşturulması konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+rastgele_konumlar.py dosyasının kodları,
+seed kullanımı, benzersiz konum kontrolü,
+terminal durumların elenmesi ve JSON
+dosyasına veri kaydetme işlemleri.
+
+Seed değeri olarak öğrenci numaramın
+son iki hanesi olan 27 kullanıldı.
+
+MAX ve MIN sırasındaki konumların dengeli
+olması için her oyuncuya 25 konum ayrıldı.
+
+### İstek 19
+
+50 rastgele oyun konumunda Minimax ve
+alfa-beta algoritmalarının derinlik 6 için
+karşılaştırılması konusunda ChatGPT'den
+yardım aldım.
+
+Kullanılan kısım:
+alphabeta_dogruluk.py dosyasının kodları,
+JSON dosyasından konumların okunması,
+kök değeri karşılaştırması, düğüm sayısı
+kontrolü ve seçilen hamlenin düz Minimax
+ile doğrulanması.
+
+Çalışma süresi, ortalama düğüm sayısı,
+düğüm azalması hesapları ve CSV dosyasına
+sonuçların kaydedilmesi için verilen
+kodlardan yararlanıldı.
+
+Ölçümler kendi bilgisayarımda gerçekleştirildi.
+
+### İstek 20
+
+Alfa-beta algoritmasında üç farklı hamle
+sıralama yönteminin geliştirilmesi konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+AlphaBeta sınıfının güncellenmesi,
+center_distance(), ordered_actions()
+ve priority() fonksiyonlarının kodları.
+
+Sıralamasız, merkezden dışarı ve önce
+kazanma/engelleme yöntemleri oluşturuldu.
+
+Misere varyantında kaybettiren hamlelerin
+son sıraya alınması sağlandı.
+
+siralama_test.py dosyasındaki doğruluk
+ve hamle sıralaması testlerinden yararlanıldı.
+
+### İstek 21
+
+Uc farkli hamle siralama yonteminin 50 rastgele
+oyun konumunda performansinin olculmesi
+konusunda ChatGPT'den yardim aldim.
+
+Kullanilan kisim:
+siralama_olcum.py dosyasinin kodlari,
+MeasuredAlphaBeta sinifi, siralama suresinin
+olculmesi ve 150 aramanin karsilastirilmasi.
+
+Kok degeri, secilen hamlenin dogrulugu,
+dugum sayisi, calisma suresi ve siralama
+maliyeti icin verilen kodlar kullanildi.
+
+En az budama yapilan konumun belirlenmesi,
+ortalama degerlerin hesaplanmasi ve CSV
+dosyalarinin olusturulmasindan yararlanildi.
+
+Olcumler kendi bilgisayarimda gerceklestirildi.
+### İstek 22
+
+Alfa-beta algoritmasinin birim testlerinin
+hazirlanmasi ve beta kesme kosulundaki
+hatalarin yakalanmasi konusunda ChatGPT'den
+yardim aldim.
+
+Kullanilan kisim:
+test_alphabeta.py dosyasindaki 9 birim
+testinin kodlari ve aciklamalari.
+
+Beta kesme kosulunun >= yerine > ve <=
+olarak degistirilmesiyle olusan performans
+ve dogruluk sorunlarinin test edilmesi
+icin verilen adimlardan yararlanildi.
+
+Deneylerden sonra orijinal beta kesme
+kosulu geri yuklendi ve tum birim
+testleri yeniden calistirildi.
+
+### İstek 23
+
+Alfa-beta budaması ve hamle sıralama
+sonuçlarının raporlanması konusunda
+ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+Aşama 2 rapor metni, karşılaştırma
+tabloları, performans yorumları ve
+grafik_olustur.py dosyasına eklenen
+dört grafik için verilen kodlar.
+
+Minimax ve alfa-beta karşılaştırması,
+üç sıralama yönteminin değerlendirilmesi
+ve beta kesme koşulu deneylerinin
+raporlanmasından yararlanıldı.
+
+Rapordaki bütün ölçümler kendi
+bilgisayarımda elde ettiğim gerçek
+sonuçlardan alınmıştır.
+
+### İstek 24
+
+Alfa-beta kontrol noktası ve sözlü sınav
+hazırlığı konusunda ChatGPT'den yardım aldım.
+
+Kullanılan kısım:
+kontrol2.py dosyasının kodları, kullanıcıdan
+hamle dizisinin alınması, Minimax ve üç
+alfa-beta yönteminin karşılaştırılması,
+düğüm azalması ve çalışma süresi hesapları.
+
+Seçilen hamlelerin doğrulanması ve sözlü
+kontrol sorularının açıklamalarından
+yararlanıldı.

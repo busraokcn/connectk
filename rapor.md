@@ -156,6 +156,118 @@ bilgisayarımda gerçekleştirilmiştir.
 ayrıca tekrarlanacaktır.
 
 ## Aşama 2: Alfa-Beta Budaması ve Hamle Sıralaması
+## Aşama 2: Alfa-Beta Budaması ve Hamle Sıralaması
+
+### Yöntem
+
+Minimax algoritmasına alfa ve beta sınırları
+eklenerek alfa-beta budaması geliştirildi.
+
+MAX düğümünde value >= beta, MIN düğümünde
+value <= alpha koşulu kullanılarak gereksiz
+dalların incelenmesi engellendi.
+
+Seed değeri 27 kullanılarak 50 farklı,
+terminal olmayan oyun konumu oluşturuldu.
+Bunların 25'inde sıra MAX, 25'inde MIN
+oyuncusundadır. Konumlar JSON dosyasına
+kaydedildi.
+
+### Minimax ve Alfa-Beta Karşılaştırması
+
+| Ölçüm | Minimax | Alfa-Beta (A) |
+|---|---:|---:|
+| Konum sayısı | 50 | 50 |
+| Arama derinliği | 6 | 6 |
+| Ortalama düğüm | 31895.22 | 827.58 |
+| Ortalama süre (ms) | 257.756 | 7.556 |
+
+50 konumun tamamında kök değerleri eşit
+bulundu. Seçilen hamleler düz Minimax ile
+doğrulandı. Alfa-beta hiçbir konumda
+Minimax'tan daha fazla arama düğümü ziyaret
+etmedi.
+
+Konum başına düğüm azalmasının ortalaması
+%95.38 olarak hesaplandı.
+
+### Hamle Sıralama Yöntemleri
+
+A: Sütunların doğal sırasıyla incelenmesi.
+
+B: Merkezden dışarı doğru sıralama.
+
+C: Önce kazanma ve rakibi engelleme,
+ardından merkezden dışarı doğru sıralama.
+
+Her yöntem aynı 50 konumda derinlik 6
+için çalıştırıldı. Toplam 150 alfa-beta
+ölçümü yapıldı.
+
+| Ölçüm | A | B | C |
+|---|---:|---:|---:|
+| Doğruluk | 50/50 | 50/50 | 50/50 |
+| Ortalama düğüm | 827.58 | 807.86 | 562.60 |
+| Ortalama süre (ms) | 8.511 | 8.822 | 27.500 |
+| Sıralama süresi (ms) | 1.743 | 2.160 | 23.040 |
+| Ortalama azalma (%) | 95.38 | 94.92 | 97.41 |
+
+![Hamle sıralaması ve düğüm sayısı](grafikler/alphabeta_dugum.png)
+
+### Sonuçların Değerlendirilmesi
+
+Ortalama düğüm sayısında C < B < A
+sıralaması elde edildi.
+
+En az düğüm ziyaret eden yöntem C,
+en hızlı çalışan yöntem ise A oldu.
+
+C yönteminin daha yavaş olmasının nedeni
+kazanma ve engelleme hamlelerini belirlemek
+için ek işlemler yapmasıdır.
+
+Silindir varyantında sağ ve sol kenarlar
+birbirine bağlı olduğu için merkez sütunların
+doğal bir üstünlüğü bulunmamaktadır.
+
+24. konumda A yöntemi 782, B yöntemi
+1434, C yöntemi ise 142 düğüm ziyaret etti.
+Bu sonuç merkezden dışarı sıralamanın
+her zaman avantajlı olmadığını gösterdi.
+
+Sıralama maliyetine yasal hamle listesinin
+hazırlanması da dahildir. Süre ölçümleri
+zaman sayacının küçük ek maliyetini içerir.
+
+İdeal hamle sıralamasında alfa-beta zaman
+karmaşıklığı O(b^(m/2)), en kötü durumda
+ise O(b^m) olmaktadır.
+
+### Birim Testleri ve Hata Yakalama
+
+Alfa-beta için 9 yeni birim testi yazıldı.
+Toplam birim testi sayısı 35 oldu.
+
+| Beta koşulu | Sonuç |
+|---|---|
+| value >= beta | 35 test başarılı |
+| value > beta | AssertionError: 7 != 2 |
+| value <= beta | AssertionError: 0 != 1 |
+| Orijinal koşul geri yüklendi | 35 test başarılı |
+
+İlk deneyde eşitlik durumunda budama
+yapılmadığı için 2 yerine 7 düğüm ziyaret
+edildi.
+
+İkinci deneyde yanlış erken budama
+nedeniyle kazanma hamlesi bulunamadı.
+
+Orijinal koşul geri yüklendikten sonra
+35 testin tamamı 0.456 saniyede başarıyla
+tamamlandı.
+
+Bütün deney ve performans ölçümleri kendi
+bilgisayarımda gerçekleştirildi.
 
 ## Aşama 3: Değerlendirme Fonksiyonu ve Ağırlık Ayarı
 
